@@ -7,6 +7,9 @@ import java.util.*;
 
 import static java.util.stream.Collectors.*;
 
+/**
+ * p128 , 文档
+ */
 public class Test1 {
 
 
@@ -79,11 +82,18 @@ public class Test1 {
     }
 
     /**
-     * 分区
+     * 分区: 根据bool划分，最多2组
      */
     public void test2(){
-
+        // 荤菜，素菜
+        Map<Boolean, List<Dish>> collect = menu.stream().collect(partitioningBy(Dish::isVegetarian));
+        // 结合其他收集器 groupby
+        Map<Boolean, Map<Type, List<Dish>>> collect1 = menu.stream().collect(partitioningBy(Dish::isVegetarian, groupingBy(Dish::getType)));
     }
+
+    /**
+     * 自定义收集器(太麻烦，先不做)
+     */
 
 
 }
