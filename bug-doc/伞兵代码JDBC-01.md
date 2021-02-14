@@ -65,7 +65,5 @@ public static Connection getConn() throws Exception {
     }
 ```
 
-**我是伞兵** ：下周就研究下数据库连接池，将公司代码改造下，下期写个连接池。
-
 
 
