@@ -34,7 +34,7 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >
 > 2. docker pull mysql:5.7
 >
-> 3. ```
+> 3. ```shell
 >    docker run -d -p 3306:3306 \
 >    
 >    -e MYSQL_ROOT_PASSWORD=123456 \
@@ -62,7 +62,7 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >    **DRIVER    VOLUME NAME**
 >    local     63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >
-> 3. ```
+> 3. ```shell
 >    docker volume inspect 63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >    [
 >        {
@@ -90,7 +90,7 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >    local     63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >    local     **juming**
 >    
-> 3.  ```
+> 3.  ```shell
 >    docker volume inspect juming
 >    [
 >        {
