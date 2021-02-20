@@ -34,12 +34,16 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >
 > 2. docker pull mysql:5.7
 >
-> 3.  docker run -d -p 3306:3306 \
->
+> 3. ```
+>    docker run -d -p 3306:3306 \
+>    
 >    -e MYSQL_ROOT_PASSWORD=123456 \
 >    -v /home/mysql/conf:/etc/mysql/conf.d \
 >    -v /home/mysql/data:/var/lib/mysql \
 >    --name mysql01 mysql:5.7
+>    ```
+>
+>    
 >
 > 4. 外网连接测试。
 >
@@ -58,7 +62,8 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >    **DRIVER    VOLUME NAME**
 >    local     63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >
-> 3. docker volume inspect 63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
+> 3. ```
+>    docker volume inspect 63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >    [
 >        {
 >            "CreatedAt": "2021-02-20T13:31:36+08:00",
@@ -70,17 +75,23 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >            "Scope": "local"
 >        }
 >    ]
+>    ```
+>    
+>    
 
 
 
 ### 具名挂载
 
-> 1.  docker run -P -d -v **juming**:/etc/nginx --name juming_nginx nginx:1.18
+> 1. docker run -P -d -v **juming**:/etc/nginx --name juming_nginx nginx:1.18
+>
 > 2. docker volume ls
 >    **DRIVER    VOLUME NAME**
 >    local     63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >    local     **juming**
-> 3.  docker volume inspect juming
+>    
+> 3.  ```
+>    docker volume inspect juming
 >    [
 >        {
 >            "CreatedAt": "2021-02-20T14:45:38+08:00",
@@ -92,6 +103,9 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >            "Scope": "local"
 >        }
 >    ]
+>    ```
+>    
+>    
 
 
 
