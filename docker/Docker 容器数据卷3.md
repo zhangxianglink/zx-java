@@ -90,8 +90,9 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >    local     63a038dc41007b0ed569f45f6fd1fdf50a8977cf8237e612e2703bee465c4b87
 >    local     **juming**
 >    
-> 3.  ```shell
->    docker volume inspect juming
+> 3. docker volume inspect juming
+> 
+> 4. ```shell
 >    [
 >        {
 >            "CreatedAt": "2021-02-20T14:45:38+08:00",
@@ -104,8 +105,7 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >        }
 >    ]
 >    ```
->    
->    
+> 
 
 
 
@@ -129,6 +129,6 @@ Docker 容器中数据同步保存到本地**采用卷技术**：实际上就是
 >
 > docker run -d -P -name nginx002 -v juming-nginx:/etc/nginx:rw nginx
 >
->  *ro 就说明这个路径只能宿主机来操作，容器内部是无法操作的*
+>  *ro 就说明这个路径只能宿主机来操作，容器内部是无法操作的* (***多数据库挂载一个数据卷，不同数据库容器之间读写分离***)
 >
 > **PS(删除容器，挂载内容依旧存在)**
