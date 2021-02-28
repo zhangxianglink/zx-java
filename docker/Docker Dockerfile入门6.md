@@ -44,9 +44,44 @@
 > 创建自己的centos
 
 ```sh
+# scratch 代表一个虚拟的镜像，底层地基的概念。
+FROM centos
+MAINTAINER zhang<1059976480@qq.com>
 
+ENV MYPATH /user/local
+WORKDIR $MYPATH
 
-build 最后的点 .指的是镜像构建时打包上传到Docker引擎中的文件目录。
+RUN yum -y install vim
+RUN yum -y install net-tools
+
+EXPOSE 80
+
+CMD echo $MYPATH
+CMD echo "-------end--------"
+CMD /bin/bash
+
+$ docker build -f dockerfile-centos -t mycentos:v-1 .
+# build 最后的点 .指的是镜像构建时打包上传到Docker引擎中的文件目录。
+$ docker history 66d90a86b889  查看构建历史
 ```
 
-> CMD 和 ENTRYPOINT 的区别
+> Dockerfile 制作tomcat
+
+```shell
+TODO
+```
+
+> 发布镜像
+
+```sh
+$ docker login -u name
+$ docker push 	仓库名/镜像:tag
+
+# 阿里云开启容器镜像服务，开启命名空间，镜像仓库
+参考官方文档
+
+docker save / load
+$ docker save -o nginx1.18.tar  nginx:1.18
+$ docker load -i nginx1.18.tar
+```
+

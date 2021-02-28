@@ -6,6 +6,8 @@
 
 **镜像提交** 
 
+> **docker commit :**从容器创建一个新的镜像。
+>
 > docker commit -m="message" -a="auther"  容器id  新名称:tag
 >
 > 生成新镜像，docker images
