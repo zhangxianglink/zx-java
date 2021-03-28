@@ -31,20 +31,96 @@ find /root/redis-6.0.6/src  -mmin +1 -name dump* -exec  rm -rf {} \;
 
 
 
-## Redis 第十课 《集群搭建》
+## Redis 第十一课 《docker集群搭建》
 
 ```shell
-127.0.0.1:6379> INFO replication
-# Replication
-role:master  # 主机
-connected_slaves:0  # 从机
-master_replid:b6bab71de89b8f53d1f1b51d0a338d73fa7e6c2c
-master_replid2:0000000000000000000000000000000000000000
-master_repl_offset:0
-second_repl_offset:-1
-repl_backlog_active:0
-repl_backlog_size:1048576
-repl_backlog_first_byte_offset:0
-repl_backlog_histlen:0
+$ docker network create redis --subnet 172.33.0.0/1
+$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+a346cc35207f   bridge    bridge    local
+104e914d1a83   host      host      local
+40f97793930f   mynet     bridge    local
+777c296edc22   none      null      local
+1c95ff9ada98   redis     bridge    local
+```
+
+脚本部署：
+
+```shell
+#!/bin/sh
+for port in $(seq 1 6);
+do 
+mkdir -p /mydata/redis/node-${port}/conf
+touch /mydata/redis/node-${port}/conf/redis.conf
+cat << EOF >/mydata/redis/node-${port}/conf/redis.conf
+port 6379
+bind 0.0.0.0
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+cluster-announce-ip 172.33.0.1${port}
+cluster-announce-port 6379
+cluster-announce-bus-port 16379
+appendonly yes
+EOF
+done
+```
+
+Docker 启动
+
+```sh
+docker run -p 6376:6379 -p 16376:16379 --name redis-6 \
+    -v /mydata/redis/node-6/data:/data \
+    -v /mydata/redis/node-6/conf/redis.conf:/etc/redis/redis.conf \
+    -d --net redis --ip 172.33.0.16 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    
+    docker run -p 6375:6379 -p 16375:16379 --name redis-5 \
+    -v /mydata/redis/node-5/data:/data \
+    -v /mydata/redis/node-5/conf/redis.conf:/etc/redis/redis.conf \
+    -d --net redis --ip 172.33.0.15 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    
+    docker run -p 6374:6379 -p 16374:16379 --name redis-4 \
+    -v /mydata/redis/node-4/data:/data \
+    -v /mydata/redis/node-4/conf/redis.conf:/etc/redis/redis.conf \
+    -d --net redis --ip 172.33.0.14 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    
+    docker run -p 6373:6379 -p 16373:16379 --name redis-3 \
+    -v /mydata/redis/node-3/data:/data \
+    -v /mydata/redis/node-3/conf/redis.conf:/etc/redis/redis.conf \
+    -d --net redis --ip 172.33.0.13 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    
+    docker run -p 6372:6379 -p 16372:16379 --name redis-2 \
+    -v /mydata/redis/node-2/data:/data \
+    -v /mydata/redis/node-2/conf/redis.conf:/etc/redis/redis.conf \
+    -d --net redis --ip 172.33.0.12 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    
+    docker run -p 6371:6379 -p 16371:16379 --name redis-1 \
+    -v /mydata/redis/node-1/data:/data \
+    -v /mydata/redis/node-1/conf/redis.conf:/etc/redis/redis.conf \
+    -d --net redis --ip 172.33.0.11 redis:5.0.9-alpine3.11 redis-server /etc/redis/redis.conf
+    
+   $ redis-cli --cluster create 172.33.0.11:6379 172.33.0.12:6379 172.33.0.13:6379 172.33.0.14:6379 172.33.0.15:6379 172.33.0.16:6379 --cluster-replicas 1
+```
+
+```sh
+/data # redis-cli -c
+127.0.0.1:6379> cluster info
+cluster_state:ok
+cluster_slots_assigned:16384
+cluster_slots_ok:16384
+cluster_slots_pfail:0
+cluster_slots_fail:0
+cluster_known_nodes:6
+cluster_size:3
+cluster_current_epoch:6
+cluster_my_epoch:1
+cluster_stats_messages_ping_sent:104
+cluster_stats_messages_pong_sent:102
+cluster_stats_messages_sent:206
+cluster_stats_messages_ping_received:97
+cluster_stats_messages_pong_received:104
+cluster_stats_messages_meet_received:5
+cluster_stats_messages_received:206
+127.0.0.1:6379> cluster nodes
 ```
 
