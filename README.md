@@ -5,3 +5,6 @@
 3. redis note ✌
 4. docker note ✌
 5. JDK NIO note
+   [阅读材料](https://www.jianshu.com/p/aab0f50846d0)
+   [阅读材料2](https://www.jianshu.com/p/6066eab2ecfc)
+   
