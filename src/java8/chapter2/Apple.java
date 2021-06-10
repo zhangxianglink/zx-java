@@ -24,6 +24,7 @@ public class Apple {
 	private String color;
 	
 	private Integer weight;
+
 	
 	public String getColor() {
 		return color;
