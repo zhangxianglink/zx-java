@@ -42,5 +42,34 @@ netstat -nap | grep pid
 pwdx pid
 ```
 
+### 2. Linux常用命令
+
+```sh
+ctrl + im I head vim i insert 
+vim a append vim A end
+vim O open last line
+vim o open new line
+esc normal
+:wq write quit
 
 
+# 关于插入
+ctrl + w 删除上一个单词
+ctrl + h 删除上一个字
+ctrl + u 删除当前一行的输入
+gi 进入insert模式，在上一次编辑的位置
+
+#关于行间的移动
+w e b 单词之间跳动
+0 行首
+$ 行尾
+f 行内搜索 ;跳动到下个选项
+t 行内搜索(字符前) ;跳动到下个选项
+gg 文件开头
+G 文件末尾
+zz 文件中间
+ctrl + o 上次访问的位置
+ctrl + u 上一页
+ctrl + f 下一页 
+H,M,L 当前页面头尾
+```
