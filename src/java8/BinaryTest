@@ -1,0 +1,33 @@
+package java8;
+
+import java8.pojo.CardWeek;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * @author xiang.z
+ * @since 2021-06-30 15:35
+ */
+public class BinaryTest {
+
+    public static void main(String[] args) {
+        String week = "1111100";
+        System.out.println(Long.parseLong(week,2));
+
+        long db = 124;
+        String dbWeek = Long.toBinaryString(124);
+        String[] split = dbWeek.split("");
+
+        LinkedHashMap<Object, Object> map = new LinkedHashMap<>();
+        List<CardWeek> collect = Arrays.stream(CardWeek.values()).sorted((a, b) -> a.getNum() > b.getNum() ? 1 : -1).collect(Collectors.toList());
+        for (CardWeek cardWeek : collect) {
+            map.put(cardWeek.getCode(),split[cardWeek.getNum()-1]);
+        }
+        map.forEach((k,v) -> System.out.println(k + " " + v));
+    }
+
+}
