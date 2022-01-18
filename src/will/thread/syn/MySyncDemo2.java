@@ -1,4 +1,4 @@
-package will.thread.one;
+package will.thread.syn;
 
 /**
  * 类🔒
