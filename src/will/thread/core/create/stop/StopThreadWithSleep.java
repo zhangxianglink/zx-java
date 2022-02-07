@@ -12,10 +12,8 @@ public class StopThreadWithSleep implements Runnable{
         while (num < 300){
             System.out.println(num+" "+Thread.currentThread().isInterrupted() );
             num ++;
-
-                Thread.sleep(5);
-
-        }
+            Thread.sleep(5);
+           }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {
