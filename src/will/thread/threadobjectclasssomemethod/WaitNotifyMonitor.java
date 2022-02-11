@@ -1,7 +1,8 @@
 package will.thread.threadobjectclasssomemethod;
 
 /**
- * 嵌套问题
+ * 死锁问题证明了，wait() 只会锁住当前对象
+ * https://www.cnblogs.com/kongzhongqijing/articles/3630264.html
  */
 public class WaitNotifyMonitor {
 
@@ -25,23 +26,24 @@ public class WaitNotifyMonitor {
             System.out.println("over");
         });
 
-        Thread thread1 = new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
+        Thread thread1 = new Thread(() -> {
             synchronized (a) {
                 System.out.println(Thread.currentThread().getName() + "获取到a🔒");
                 synchronized (b) {
                     System.out.println(Thread.currentThread().getName() + "想要获取b🔒");
                 }
+
             }
 
         });
 
         thread0.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         thread1.start();
     }
 }
