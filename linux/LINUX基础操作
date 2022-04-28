@@ -1,0 +1,117 @@
+## LINUX 简单记录
+
+用户，权限相关
+
+>su - , su 的区别在于，是否环境变量随着切换
+>
+>用户操作：useradd ,userdel, usermod,id
+>
+>密码操作： passwd
+>
+>权限操作： chown, chmod
+>
+>linux一切皆为文件， /etc/shadow, /etc/passwd, /etc/group
+
+网络相关
+
+> 常用命令：
+>
+> ping 
+>
+> nslookup  域名映射
+>
+> telnet 端口
+>
+> tcpdump 抓包工具
+>
+> netstat -n ip -t tcp -p 进程 -l listener
+
+进程
+
+> ps | pstree | top -p 
+>
+> & 后台运行
+>
+> nohup  & 关闭终端后台运行
+>
+> ctrl + z 任务挂起
+>
+> jobs 查看任务
+>
+> fg 前台任务， bg 后台任务
+>
+> kill -l  64个命令
+
+空间
+
+>free ,df, du 
+>
+>磁盘分区
+>
+>fdisk -l 
+>
+>fdisk  /dev/sdc 
+>
+>n 新建分区， p 主分区, p 查看 ，q退出，w保存，d删除
+>
+>mkfs 创建文件系统
+>
+>mkfs.ext4 /dev/sdc1 
+>
+>挂载到自定义目录 /wind
+>
+>mount /dev/sdc /wind
+>
+>持久化  /etc/fstab
+>
+>echo >> /dev/sdc /wind ext4 defaults 0 0
+
+shell脚本
+
+> 变量作用范围， 引用范围 。。。去看阮一峰的教程
+>
+> shell感觉没那么难，很多函数都没用过，能看懂公司的发版脚本了
+
+定时任务
+
+> at 一次性任务 Ctrl+D 提交 ，stq 查看
+>
+> corntab 周期性任务
+>
+> corntab -e 制作
+>
+> corntab -l 查看
+>
+> 执行记录 /var/log/cron
+>
+> 用户定时任务 /var/spool/cron
+
+查找命令
+
+> grep 
+>
+> find
+
+文本操作
+
+> sed 's/old/new'  文件名称
+>
+> -e 多个，-i , -r 正则
+>
+> awk 'BEGIN{a=1}{a++}END{print a}'
+>
+> FS 分隔符
+>
+> OPS 合并符
+>
+> RS 换行符
+>
+> NR/FNR 行号
+>
+> NF 每行长度 
+>
+> $NF 最后一个字段
+>
+> $1 第一个字段   $0  一行
+>
+> 其他使用牛客网刷题
