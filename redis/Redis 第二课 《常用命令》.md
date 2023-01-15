@@ -3,8 +3,6 @@
  redis 默认单线程，6以后支持多线程。
  redis 所有的数据都会放到内存中，单线程无需上下文切换，多次读写使用一个CPU。
 
-[多线程引入](https://zhuanlan.zhihu.com/p/144805500)
-
 ```shell
 # 打开redis.conf 
 databases 16 代表一共有16个数据库，我们默认是第0个
@@ -18,5 +16,13 @@ $ keys *
 $ flushdb
 # 清空所有的库
 $ flushall
+# 删除
+$ DEL
+# 判断是否存在
+$ EXISTS
+# 有效期
+$ EXPIRE
+# 查看剩余有效期
+$ TTL
 ```
 

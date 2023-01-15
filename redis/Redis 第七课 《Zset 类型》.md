@@ -4,46 +4,48 @@
 
 ```shell
 # ZSET 的特点应该就是排序了，能够做top100, 权重信息排列。
-127.0.0.1:6379> zadd top10 1 "one" 2 'tow' 3 "three"
-(integer) 3
-127.0.0.1:6379> zadd top10 4 "four" 5 'five' 6 "six"
-(integer) 3
-127.0.0.1:6379> zadd top10 7 "seven" 8 'eight' 9 "nine" 10 "ten"
-(integer) 4
-
-# 根据分值排序，正序
-127.0.0.1:6379> ZRANGEBYSCORE top10 (0 3
-1) "one"
-2) "tow"
-3) "three"
-127.0.0.1:6379> ZRANGEBYSCORE top10 -inf +inf
- 1) "one"
- 2) "tow"
- 3) "three"
- 4) "four"
- 5) "five"
- 6) "six"
- 7) "seven"
- 8) "eight"
- 9) "nine"
-10) "ten"
-
-# 根据分值排序，倒序排列
-127.0.0.1:6379> ZREVRANGEBYSCORE top10 +inf -inf
- 1) "ten"
- 2) "nine"
- 3) "eight"
- 4) "seven"
- 5) "six"
- 6) "five"
- 7) "four"
- 8) "three"
- 9) "tow"
-10) "one"
-127.0.0.1:6379> ZREVRANGEBYSCORE top10 (11 (5 limit 0 2
-1) "ten"
-2) "nine"
+> ZADD stus 85 jack 89 lucy 82 rose 95 tom 78 Jerry 92 amy 76 miles
+7
+# 删除tom
+> ZREM stus tom
+1
+# 获取个数
+> zcard stus
+6
+# 获取分数
+> ZSCORE stus jack
+85
+# 获取排名， ZRANK （ascend） ZREVRANK (descend) 从0开始计数
+> ZRANK stus amy
+5
+> ZREVRANK stus amy
+0
+# 80分及以下人数
+> ZCOUNT stus 0 80
+2
+# 自增操作
+> ZINCRBY stus 10 rose
+92
+# 根据分值排序
+> ZRANGE stus 0 -1
+miles
+Jerry
+jack
+lucy
+amy
+rose
+> ZREVRANGE stus 0 -1
+rose
+amy
+lucy
+jack
+Jerry
+miles
+# 按分值查信息
+> ZRANGEBYSCORE stus 0 80
+miles
+Jerry
 ```
 
-**东西蛮多的，以后再写**
 
+### 聚合操作类似SET
